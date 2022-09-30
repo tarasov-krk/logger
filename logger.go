@@ -45,26 +45,26 @@ func SetLogger(l Logger) {
 	logger = l
 }
 
-func Info(msg ...any) {
-	if logger.GetLevel() <= LevelInfo {
-		logger.Write("INFO", appendContext(msg...)...)
-	}
-}
-
-func Warn(msg ...any) {
-	if logger.GetLevel() <= LevelWarning {
-		logger.Write("WARNING", appendContext(msg...)...)
-	}
-}
-
 func Error(msg ...any) {
-	if logger.GetLevel() <= LevelError {
+	if logger.GetLevel() >= LevelError {
 		logger.Write("ERROR", appendContext(msg...)...)
 	}
 }
 
+func Warn(msg ...any) {
+	if logger.GetLevel() >= LevelWarning {
+		logger.Write("WARNING", appendContext(msg...)...)
+	}
+}
+
+func Info(msg ...any) {
+	if logger.GetLevel() >= LevelInfo {
+		logger.Write("INFO", appendContext(msg...)...)
+	}
+}
+
 func Debug(msg ...any) {
-	if logger.GetLevel() <= LevelDebug {
+	if logger.GetLevel() >= LevelDebug {
 		logger.Write("DEBUG", appendContext(msg...)...)
 	}
 }
